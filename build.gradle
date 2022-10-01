@@ -1,0 +1,48 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.7.10'
+    id "org.xbib.gradle.plugin.jflex" version "1.6.0"
+    id "com.diffplug.spotless" version "6.11.0"
+    id 'application'
+}
+
+group = 'me.stefan'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.typemeta:funcj-parser:0.6.18'
+    implementation 'org.jgrapht:jgrapht-core:1.5.1'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = '18'
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = '18'
+}
+
+application {
+    mainClassName = 'MainKt'
+}
+
+sourceSets {
+    main {
+        jflex {
+            srcDir "src/main/jflex"
+        }
+    }
+}
+
+spotless {
+    kotlin {
+        ktfmt().dropboxStyle()
+    }
+}
