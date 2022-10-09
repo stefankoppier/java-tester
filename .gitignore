@@ -45,6 +45,9 @@
 *.class
 **/build/kotlin
 **/build/java
+**/build/spotless
+**/build/tmp
+**/build/generated
 
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml
