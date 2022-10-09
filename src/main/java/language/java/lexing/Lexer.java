@@ -339,13 +339,13 @@ public final class Lexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\2\1\1\0\1\2\1\3\1\0\1\4\1\5"+
-    "\1\6\1\7\1\10\1\11\1\12\2\13\1\14\1\15"+
-    "\1\16\1\17\12\2\1\20\1\0\1\21\1\22\1\23"+
-    "\1\24\1\25\1\26\6\2\1\27\6\2\1\30\6\2"+
-    "\1\31\11\2\1\32\3\2\1\33\1\34\2\2\1\35"+
-    "\1\36\1\2\1\37\2\2\1\40\2\2\1\41\1\42"+
-    "\1\43\1\2\1\44";
+    "\1\0\2\1\1\2\1\3\1\4\1\0\1\5\1\6"+
+    "\1\7\1\10\1\11\1\12\1\13\2\14\1\15\1\16"+
+    "\1\17\1\20\12\3\1\21\1\0\1\22\1\23\1\24"+
+    "\1\25\1\26\1\27\6\3\1\30\6\3\1\31\6\3"+
+    "\1\32\11\3\1\33\3\3\1\34\1\35\2\3\1\36"+
+    "\1\37\1\3\1\40\2\3\1\41\2\3\1\42\1\43"+
+    "\1\44\1\3\1\45";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[90];
@@ -523,9 +523,8 @@ public final class Lexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\1\1\1\0\1\1\1\11\1\0\10\11"+
-    "\1\1\1\11\15\1\1\11\1\0\6\11\15\1\1\11"+
-    "\46\1";
+    "\1\0\1\11\3\1\1\11\1\0\10\11\1\1\1\11"+
+    "\15\1\1\11\1\0\6\11\15\1\1\11\46\1";
 
   private static int [] zzUnpackAttribute() {
     int [] result = new int[90];
@@ -1019,182 +1018,187 @@ public final class Lexer {
             { 
             }
             // fall through
-          case 37: break;
-          case 2:
-            { return new IdentifierToken(yytext(), pos());
-            }
-            // fall through
           case 38: break;
-          case 3:
-            { return new ModuloToken(pos());
+          case 2:
+            { return new NotToken(pos());
             }
             // fall through
           case 39: break;
-          case 4:
-            { return new RoundOpenToken(pos());
+          case 3:
+            { return new IdentifierToken(yytext(), pos());
             }
             // fall through
           case 40: break;
-          case 5:
-            { return new RoundCloseToken(pos());
+          case 4:
+            { return new ModuloToken(pos());
             }
             // fall through
           case 41: break;
-          case 6:
-            { return new TimesToken(pos());
+          case 5:
+            { return new RoundOpenToken(pos());
             }
             // fall through
           case 42: break;
-          case 7:
-            { return new PlusToken(pos());
+          case 6:
+            { return new RoundCloseToken(pos());
             }
             // fall through
           case 43: break;
-          case 8:
-            { return new CommaToken(pos());
+          case 7:
+            { return new TimesToken(pos());
             }
             // fall through
           case 44: break;
-          case 9:
-            { return new MinusToken(pos());
+          case 8:
+            { return new PlusToken(pos());
             }
             // fall through
           case 45: break;
-          case 10:
-            { return new DivideToken(pos());
+          case 9:
+            { return new CommaToken(pos());
             }
             // fall through
           case 46: break;
-          case 11:
-            { return new NumberToken(Long.parseLong(yytext()), pos());
+          case 10:
+            { return new MinusToken(pos());
             }
             // fall through
           case 47: break;
-          case 12:
-            { return new SemicolonToken(pos());
+          case 11:
+            { return new DivideToken(pos());
             }
             // fall through
           case 48: break;
-          case 13:
-            { return new LessThanToken(pos());
+          case 12:
+            { return new NumberToken(Long.parseLong(yytext()), pos());
             }
             // fall through
           case 49: break;
-          case 14:
-            { return new AssignmentToken(pos());
+          case 13:
+            { return new SemicolonToken(pos());
             }
             // fall through
           case 50: break;
-          case 15:
-            { return new GreaterThanToken(pos());
+          case 14:
+            { return new LessThanToken(pos());
             }
             // fall through
           case 51: break;
-          case 16:
-            { return new CurlyOpenToken(pos());
+          case 15:
+            { return new AssignmentToken(pos());
             }
             // fall through
           case 52: break;
-          case 17:
-            { return new CurlyCloseToken(pos());
+          case 16:
+            { return new GreaterThanToken(pos());
             }
             // fall through
           case 53: break;
-          case 18:
-            { return new NotEqualsToken(pos());
+          case 17:
+            { return new CurlyOpenToken(pos());
             }
             // fall through
           case 54: break;
-          case 19:
-            { return new AndToken(pos());
+          case 18:
+            { return new CurlyCloseToken(pos());
             }
             // fall through
           case 55: break;
-          case 20:
-            { return new LessThanEqualsToken(pos());
+          case 19:
+            { return new NotEqualsToken(pos());
             }
             // fall through
           case 56: break;
-          case 21:
-            { return new EqualsToken(pos());
+          case 20:
+            { return new AndToken(pos());
             }
             // fall through
           case 57: break;
-          case 22:
-            { return new GreaterThanEqualsToken(pos());
+          case 21:
+            { return new LessThanEqualsToken(pos());
             }
             // fall through
           case 58: break;
-          case 23:
-            { return new IfToken(pos());
+          case 22:
+            { return new EqualsToken(pos());
             }
             // fall through
           case 59: break;
-          case 24:
-            { return new OrToken(pos());
+          case 23:
+            { return new GreaterThanEqualsToken(pos());
             }
             // fall through
           case 60: break;
-          case 25:
-            { return new IntToken(pos());
+          case 24:
+            { return new IfToken(pos());
             }
             // fall through
           case 61: break;
-          case 26:
-            { return new ElseToken(pos());
+          case 25:
+            { return new OrToken(pos());
             }
             // fall through
           case 62: break;
-          case 27:
-            { return new TrueToken(pos());
+          case 26:
+            { return new IntToken(pos());
             }
             // fall through
           case 63: break;
-          case 28:
-            { return new VoidToken(pos());
+          case 27:
+            { return new ElseToken(pos());
             }
             // fall through
           case 64: break;
-          case 29:
-            { return new BreakToken(pos());
+          case 28:
+            { return new TrueToken(pos());
             }
             // fall through
           case 65: break;
-          case 30:
-            { return new ClassToken(pos());
+          case 29:
+            { return new VoidToken(pos());
             }
             // fall through
           case 66: break;
-          case 31:
-            { return new FalseToken(pos());
+          case 30:
+            { return new BreakToken(pos());
             }
             // fall through
           case 67: break;
-          case 32:
-            { return new WhileToken(pos());
+          case 31:
+            { return new ClassToken(pos());
             }
             // fall through
           case 68: break;
-          case 33:
-            { return new ReturnToken(pos());
+          case 32:
+            { return new FalseToken(pos());
             }
             // fall through
           case 69: break;
-          case 34:
-            { return new StaticToken(pos());
+          case 33:
+            { return new WhileToken(pos());
             }
             // fall through
           case 70: break;
-          case 35:
-            { return new BooleanToken(pos());
+          case 34:
+            { return new ReturnToken(pos());
             }
             // fall through
           case 71: break;
-          case 36:
-            { return new ContinueToken(pos());
+          case 35:
+            { return new StaticToken(pos());
             }
             // fall through
           case 72: break;
+          case 36:
+            { return new BooleanToken(pos());
+            }
+            // fall through
+          case 73: break;
+          case 37:
+            { return new ContinueToken(pos());
+            }
+            // fall through
+          case 74: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

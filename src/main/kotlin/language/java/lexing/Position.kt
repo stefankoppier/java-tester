@@ -9,13 +9,16 @@ class Position(val line: Int, val column: Int) {
         }
     }
 
+    fun isUnknown(): Boolean {
+        return equals(unknown())
+    }
+
     override fun toString(): String {
         return "Position{line=$line column=$column}"
     }
 
     override fun equals(other: Any?): Boolean {
-        return if (other is Position) this.line == other.line && this.column == other.column
-        else false
+        return if (other is Position) this.line == other.line && this.column == other.column else false
     }
 
     override fun hashCode(): Int {

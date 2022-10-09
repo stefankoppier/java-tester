@@ -18,9 +18,9 @@ class WhileStatementParser : SimpleTokenParser<Statement> {
     }
 
     override fun parser(): Parser<Token, Statement> {
-        return token(WhileToken())
-            .andR(ExpressionParser().betweenRound())
-            .and(StatementParser())
-            .map { guard, statement -> WhileStatement(guard, statement) }
+        return token(WhileToken()).andR(ExpressionParser().betweenRound()).and(StatementParser()).map { guard, statement
+            ->
+            WhileStatement(guard, statement)
+        }
     }
 }

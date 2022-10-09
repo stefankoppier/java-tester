@@ -11,6 +11,6 @@ class MethodDeclaration(
     val body: Statement
 ) {
     override fun toString(): String {
-        return "MethodDeclaration{$type $name $body}"
+        return "MethodDeclaration{$modifiers $type $name $parameters $body}"
     }
 }

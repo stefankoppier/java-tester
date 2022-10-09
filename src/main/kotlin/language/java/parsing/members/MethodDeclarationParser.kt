@@ -9,6 +9,9 @@ import org.typemeta.funcj.parser.Combinators.choice
 import org.typemeta.funcj.parser.Parser
 
 class MethodDeclarationParser : SimpleTokenParser<MethodDeclaration> {
+
+    private val simplifier = AstSimplifier()
+
     override fun parser(): Parser<Token, MethodDeclaration> {
         return modifiers()
             .and(TypeParser())
@@ -16,7 +19,7 @@ class MethodDeclarationParser : SimpleTokenParser<MethodDeclaration> {
             .and(((ParameterParser().sepBy(comma()))).betweenRound())
             .and(StatementsParser().betweenCurly())
             .map { modifiers, type, name, parameters, body ->
-                MethodDeclaration(modifiers.toList(), type, name, parameters.toList(), body)
+                simplifier.simplify(MethodDeclaration(modifiers.toList(), type, name, parameters.toList(), body))
             }
     }
 

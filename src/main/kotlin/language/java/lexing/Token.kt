@@ -16,8 +16,7 @@ open class Token(val position: Position) {
     }
 }
 
-class IdentifierToken(val value: String, position: Position = Position.unknown()) :
-    Token(position) {
+class IdentifierToken(val value: String, position: Position = Position.unknown()) : Token(position) {
     override fun toString(): String {
         return "IdentifierToken{$value $position}"
     }
@@ -58,6 +57,8 @@ class AndToken(position: Position = Position.unknown()) : Token(position)
 class OrToken(position: Position = Position.unknown()) : Token(position)
 
 class AssignmentToken(position: Position = Position.unknown()) : Token(position)
+
+class NotToken(position: Position = Position.unknown()) : Token(position)
 
 class PlusToken(position: Position = Position.unknown()) : Token(position)
 

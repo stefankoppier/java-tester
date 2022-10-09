@@ -11,8 +11,6 @@ import org.typemeta.funcj.parser.Parser
 class ExpressionStatementParser : SimpleTokenParser<Statement> {
 
     override fun parser(): Parser<Token, Statement> {
-        return ExpressionParser().andL(semicolon()).map { expression ->
-            ExpressionStatement(expression)
-        }
+        return ExpressionParser().andL(semicolon()).map { expression -> ExpressionStatement(expression) }
     }
 }

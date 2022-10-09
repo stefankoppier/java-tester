@@ -9,8 +9,7 @@ import language.java.syntax.statements.ContinueStatement
 import language.java.syntax.statements.ReturnStatement
 import language.java.syntax.statements.WhileStatement
 
-class WhileStatementGraphConstructor(label: Int, val statement: WhileStatement) :
-    GraphConstructor(label) {
+class WhileStatementGraphConstructor(label: Int, val statement: WhileStatement) : GraphConstructor(label) {
 
     private val node = ControlFlowGraphNode.StatementNode(current(), statement)
 
@@ -42,7 +41,8 @@ class WhileStatementGraphConstructor(label: Int, val statement: WhileStatement) 
             .union(
                 body.fallthrough().filter(this::isContinueStatement).map { final ->
                     ControlFlowGraphEdge.of(final, body.init())
-                })
+                }
+            )
 
     private fun isReturnStatement(node: ControlFlowGraphNode) =
         node is ControlFlowGraphNode.StatementNode && node.statement is ReturnStatement

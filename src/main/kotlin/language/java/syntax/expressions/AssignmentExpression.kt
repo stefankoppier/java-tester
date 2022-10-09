@@ -1,7 +1,9 @@
 package language.java.syntax.expressions
 
-class AssignmentExpression(
-    val lhs: VariableTermExpression,
-    val operator: AssignmentOperator,
-    val value: Expression
-) : Expression()
+class AssignmentExpression(val lhs: VariableAssignmentTarget, val operator: Operator, val value: Expression) :
+    Expression() {
+
+    enum class Operator {
+        ASSIGN,
+    }
+}

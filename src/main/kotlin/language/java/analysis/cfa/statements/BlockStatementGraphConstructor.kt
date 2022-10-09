@@ -5,8 +5,7 @@ import language.java.analysis.cfa.ControlFlowGraphNode
 import language.java.analysis.cfa.GraphConstructor
 import language.java.syntax.statements.BlockStatement
 
-class BlockStatementGraphConstructor(label: Int, val statement: BlockStatement) :
-    GraphConstructor(label) {
+class BlockStatementGraphConstructor(label: Int, val statement: BlockStatement) : GraphConstructor(label) {
 
     private val body = of(current(), statement.body)
 

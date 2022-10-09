@@ -50,6 +50,7 @@ Number         = 0 | [1-9][0-9]*
     "==" { return new EqualsToken(pos()); }
     "!=" { return new NotEqualsToken(pos()); }
     "="  { return new AssignmentToken(pos()); }
+    "!"  { return new NotToken(pos()); }
     "+"  { return new PlusToken(pos()); }
     "-"  { return new MinusToken(pos()); }
     "*"  { return new TimesToken(pos()); }

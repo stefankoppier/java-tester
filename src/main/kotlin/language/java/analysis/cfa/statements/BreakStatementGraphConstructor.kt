@@ -5,8 +5,7 @@ import language.java.analysis.cfa.ControlFlowGraphNode
 import language.java.analysis.cfa.GraphConstructor
 import language.java.syntax.statements.BreakStatement
 
-class BreakStatementGraphConstructor(label: Int, val statement: BreakStatement) :
-    GraphConstructor(label) {
+class BreakStatementGraphConstructor(label: Int, val statement: BreakStatement) : GraphConstructor(label) {
 
     private val node = ControlFlowGraphNode.StatementNode(current(), statement)
 

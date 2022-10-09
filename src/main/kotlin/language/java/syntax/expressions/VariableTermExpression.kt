@@ -2,8 +2,8 @@ package language.java.syntax.expressions
 
 import language.java.syntax.Identifier
 
-class VariableTermExpression(val identifier: Identifier) : Expression() {
+class VariableTermExpression(val name: Identifier) : Expression() {
     override fun toString(): String {
-        return "VariableTermExpression{$identifier}"
+        return "VariableTermExpression{$name}"
     }
 }

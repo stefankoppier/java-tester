@@ -4,7 +4,7 @@ import engine.state.State
 import language.java.syntax.expressions.Expression
 import semantics.Evaluation
 
-abstract class EvaluationSemantics() {
+abstract class EvaluationSemantics {
 
     abstract fun evaluate(state: State, expression: Expression): Evaluation<Unit>
 

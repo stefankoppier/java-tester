@@ -7,6 +7,9 @@ class CallStack(private val frames: ArrayDeque<StackFrame>) {
         }
     }
 
+    val size
+        get() = frames.size
+
     override fun toString(): String {
         return "CallStack{$frames}"
     }
@@ -21,6 +24,10 @@ class CallStack(private val frames: ArrayDeque<StackFrame>) {
 
     fun peek(): StackFrame? {
         return frames.lastOrNull()
+    }
+
+    fun callee(): StackFrame? {
+        return if (frames.size > 1) frames[frames.size - 2] else null
     }
 
     fun clone(): CallStack {

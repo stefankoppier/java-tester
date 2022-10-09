@@ -17,6 +17,14 @@ class ControlFlowGraph : DefaultDirectedGraph<ControlFlowGraphNode, ControlFlowG
         return nodes.fold(this) { cfg, node -> cfg.addNode(node) }
     }
 
+    fun find(label: Int): ControlFlowGraphNode? {
+        return vertexSet().find { it.label == label }
+    }
+
+    fun neighbours(label: Int): List<ControlFlowGraphEdge> {
+        return edgeSet().filter { edge -> edge.first.label == label }
+    }
+
     fun addNode(node: ControlFlowGraphNode): ControlFlowGraph {
         addVertex(node)
         return this
@@ -32,37 +40,25 @@ class ControlFlowGraph : DefaultDirectedGraph<ControlFlowGraphNode, ControlFlowG
     }
 }
 
-sealed class ControlFlowGraphEdge(
-    val first: ControlFlowGraphNode,
-    val second: ControlFlowGraphNode
-) : DefaultEdge() {
+sealed class ControlFlowGraphEdge(val first: ControlFlowGraphNode, val second: ControlFlowGraphNode) : DefaultEdge() {
 
     companion object {
         fun of(first: ControlFlowGraphNode, second: ControlFlowGraphNode): ControlFlowGraphEdge {
             return NormalEdge(first, second)
         }
 
-        fun of(
-            guard: Expression,
-            first: ControlFlowGraphNode,
-            second: ControlFlowGraphNode
-        ): ControlFlowGraphEdge {
+        fun of(guard: Expression, first: ControlFlowGraphNode, second: ControlFlowGraphNode): ControlFlowGraphEdge {
             return GuardedEdge(guard, first, second)
         }
     }
 
-    class NormalEdge(first: ControlFlowGraphNode, second: ControlFlowGraphNode) :
+    class NormalEdge(first: ControlFlowGraphNode, second: ControlFlowGraphNode) : ControlFlowGraphEdge(first, second)
+
+    class GuardedEdge(val guard: Expression, first: ControlFlowGraphNode, second: ControlFlowGraphNode) :
         ControlFlowGraphEdge(first, second)
 
-    class GuardedEdge(
-        val guard: Expression,
-        first: ControlFlowGraphNode,
-        second: ControlFlowGraphNode
-    ) : ControlFlowGraphEdge(first, second)
-
     override fun equals(other: Any?): Boolean {
-        return if (other is ControlFlowGraphEdge) first == other.first && second == other.second
-        else false
+        return if (other is ControlFlowGraphEdge) first == other.first && second == other.second else false
     }
 
     override fun hashCode(): Int {

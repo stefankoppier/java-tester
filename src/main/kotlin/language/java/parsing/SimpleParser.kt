@@ -2,6 +2,7 @@ package language.java.parsing
 
 import language.java.lexing.*
 import org.typemeta.funcj.data.Lazy
+import org.typemeta.funcj.functions.Functions
 import org.typemeta.funcj.parser.Combinators.value
 import org.typemeta.funcj.parser.Input
 import org.typemeta.funcj.parser.Parser
@@ -24,22 +25,29 @@ interface SimpleTokenParser<A> : Parser<Token, A> {
     fun parser(): Parser<Token, A>
 }
 
-fun token(token: Token): Parser<Token, Token> {
+internal fun token(token: Token): Parser<Token, Token> {
     return value(token)
 }
 
-fun semicolon(): Parser<Token, Unit> {
+internal fun semicolon(): Parser<Token, Unit> {
     return token(SemicolonToken()).map {}
 }
 
-fun comma(): Parser<Token, Unit> {
+internal fun comma(): Parser<Token, Unit> {
     return token(CommaToken()).map {}
 }
 
-fun <A> Parser<Token, A>.betweenCurly(): Parser<Token, A> {
+internal fun <A> Parser<Token, A>.betweenCurly(): Parser<Token, A> {
     return this.between(token(CurlyOpenToken()), token(CurlyCloseToken()))
 }
 
-fun <A> Parser<Token, A>.betweenRound(): Parser<Token, A> {
-    return this.between(value(RoundOpenToken()), value(RoundCloseToken()))
+internal fun <A> Parser<Token, A>.betweenRound(): Parser<Token, A> {
+    return this.between(token(RoundOpenToken()), token(RoundCloseToken()))
+}
+
+// TODO BUG: this is currently chainl instead of chainr
+internal fun <A> Parser<Token, A>.chainrUnary(operator: Parser<Token, Functions.Op<A>>): Parser<Token, A> {
+    return operator.many().and(this).map { operators, operand ->
+        operators.toList().fold(operand) { operator, acc -> acc.apply(operator) }
+    }
 }

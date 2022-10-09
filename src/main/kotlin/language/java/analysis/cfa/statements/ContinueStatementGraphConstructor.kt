@@ -5,8 +5,7 @@ import language.java.analysis.cfa.ControlFlowGraphNode
 import language.java.analysis.cfa.GraphConstructor
 import language.java.syntax.statements.ContinueStatement
 
-class ContinueStatementGraphConstructor(label: Int, val statement: ContinueStatement) :
-    GraphConstructor(label) {
+class ContinueStatementGraphConstructor(label: Int, val statement: ContinueStatement) : GraphConstructor(label) {
 
     private val node = ControlFlowGraphNode.StatementNode(current(), statement)
 

@@ -10,8 +10,6 @@ import org.typemeta.funcj.parser.Parser
 class ParameterParser : SimpleTokenParser<Parameter> {
 
     override fun parser(): Parser<Token, Parameter> {
-        return NonVoidTypeParser().and(IdentifierParser()).map { type, name ->
-            Parameter(type, name)
-        }
+        return NonVoidTypeParser().and(IdentifierParser()).map { type, name -> Parameter(type, name) }
     }
 }

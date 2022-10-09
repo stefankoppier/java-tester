@@ -4,12 +4,9 @@ import language.java.analysis.cfa.ControlFlowGraph
 import language.java.analysis.cfa.ControlFlowGraphEdge
 import language.java.analysis.cfa.ControlFlowGraphNode
 import language.java.analysis.cfa.GraphConstructor
-import language.java.syntax.expressions.UnaryExpression
-import language.java.syntax.expressions.UnaryOperator
 import language.java.syntax.statements.IfThenElseStatement
 
-class IfThenElseStatementGraphConstructor(label: Int, val statement: IfThenElseStatement) :
-    GraphConstructor(label) {
+class IfThenElseStatementGraphConstructor(label: Int, val statement: IfThenElseStatement) : GraphConstructor(label) {
 
     private val node = ControlFlowGraphNode.StatementNode(current(), statement)
 
@@ -37,12 +34,8 @@ class IfThenElseStatementGraphConstructor(label: Int, val statement: IfThenElseS
             setOf(ControlFlowGraphEdge.of(statement.guard, node, trueStatement.init()))
                 .union(
                     if (falseStatement == null) emptySet()
-                    else
-                        setOf(
-                            ControlFlowGraphEdge.of(
-                                UnaryExpression(UnaryOperator.NOT, statement.guard),
-                                node,
-                                falseStatement.init())))
+                    else setOf(ControlFlowGraphEdge.of(!statement.guard, node, falseStatement.init()))
+                )
 
         cfg.insertNodes(setOf(node)).insertEdges(edges)
         return cfg

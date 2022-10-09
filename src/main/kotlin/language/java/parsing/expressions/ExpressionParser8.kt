@@ -4,7 +4,6 @@ import language.java.lexing.*
 import language.java.parsing.SimpleTokenParser
 import language.java.parsing.token
 import language.java.syntax.expressions.BinaryExpression
-import language.java.syntax.expressions.BinaryOperator
 import language.java.syntax.expressions.Expression
 import org.typemeta.funcj.functions.Functions
 import org.typemeta.funcj.parser.Combinators.choice
@@ -18,12 +17,10 @@ class ExpressionParser8 : SimpleTokenParser<Expression> {
     private fun operators(): Parser<Token, Functions.Op2<Expression>> {
         return choice(
             token(EqualsToken()).map {
-                Functions.Op2.of { lhs, rhs -> BinaryExpression(lhs, BinaryOperator.EQUALS, rhs) }
+                Functions.Op2.of { lhs, rhs -> BinaryExpression(lhs, BinaryExpression.Operator.EQUALS, rhs) }
             },
             token(NotEqualsToken()).map {
-                Functions.Op2.of { lhs, rhs ->
-                    BinaryExpression(lhs, BinaryOperator.NOT_EQUALS, rhs)
-                }
+                Functions.Op2.of { lhs, rhs -> BinaryExpression(lhs, BinaryExpression.Operator.NOT_EQUALS, rhs) }
             },
         )
     }

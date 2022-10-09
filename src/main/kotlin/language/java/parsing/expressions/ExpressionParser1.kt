@@ -20,12 +20,15 @@ class ExpressionParser1 : SimpleTokenParser<Expression> {
                 Functions.Op2.of { lhs, rhs ->
                     when (lhs) {
                         is VariableTermExpression ->
-                            AssignmentExpression(lhs, AssignmentOperator.ASSIGN, rhs)
-                        else ->
-                            throw IllegalStateException(
-                                "lhs must be a variable") // TODO(implement neatly)
+                            AssignmentExpression(
+                                VariableAssignmentTarget(lhs.name),
+                                AssignmentExpression.Operator.ASSIGN,
+                                rhs
+                            )
+                        else -> throw IllegalStateException("lhs must be a variable") // TODO(implement neatly)
                     }
                 }
-            })
+            }
+        )
     }
 }

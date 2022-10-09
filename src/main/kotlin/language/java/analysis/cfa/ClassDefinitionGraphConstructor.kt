@@ -2,8 +2,7 @@ package language.java.analysis.cfa
 
 import language.java.syntax.ClassDefinition
 
-class ClassDefinitionGraphConstructor(label: Int, val ast: ClassDefinition) :
-    GraphConstructor(label) {
+class ClassDefinitionGraphConstructor(label: Int, val ast: ClassDefinition) : GraphConstructor(label) {
 
     override fun init(): ControlFlowGraphNode {
         TODO("Not yet implemented")

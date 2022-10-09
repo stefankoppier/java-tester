@@ -43,6 +43,10 @@ sourceSets {
 
 spotless {
     kotlin {
-        ktfmt().dropboxStyle()
+        ktfmt().kotlinlangStyle().configure { options ->
+            options.setMaxWidth(120)
+//            options.setDropboxStyle()
+        }
+//                .dropboxStyle()
     }
 }

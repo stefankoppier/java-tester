@@ -16,6 +16,7 @@ class TestGenerator(val cases: List<TestCase>) {
             |void assert${methodName.replaceFirstChar { c -> c.uppercaseChar()}}Is${expected}() {
             |   assertEquals(${methodName}(), ${expected});
             |}
-        """.trimMargin()
+        """.trimMargin(
+        )
     }
 }

@@ -2,8 +2,7 @@ package language.java.analysis.cfa
 
 import language.java.syntax.MethodDeclaration
 
-class MethodDeclarationGraphConstructor(label: Int, val method: MethodDeclaration) :
-    GraphConstructor(label) {
+class MethodDeclarationGraphConstructor(label: Int, val method: MethodDeclaration) : GraphConstructor(label) {
 
     private val body = of(label + 1, method.body)
 
@@ -24,10 +23,7 @@ class MethodDeclarationGraphConstructor(label: Int, val method: MethodDeclaratio
     }
 
     override fun construct(cfg: ControlFlowGraph): ControlFlowGraph {
-        return body
-            .construct(cfg)
-            .insertNodes(setOf(entry) union (setOf(exit)))
-            .insertEdges(edges())
+        return body.construct(cfg).insertNodes(setOf(entry) union (setOf(exit))).insertEdges(edges())
     }
 
     override fun next(): Int {

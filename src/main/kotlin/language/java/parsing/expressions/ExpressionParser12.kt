@@ -7,7 +7,6 @@ import language.java.lexing.Token
 import language.java.parsing.SimpleTokenParser
 import language.java.parsing.token
 import language.java.syntax.expressions.BinaryExpression
-import language.java.syntax.expressions.BinaryOperator
 import language.java.syntax.expressions.Expression
 import org.typemeta.funcj.functions.Functions
 import org.typemeta.funcj.parser.*
@@ -22,13 +21,13 @@ class ExpressionParser12 : SimpleTokenParser<Expression> {
     private fun operators(): Parser<Token, Functions.Op2<Expression>> {
         return choice(
             token(TimesToken()).map {
-                Functions.Op2.of { lhs, rhs -> BinaryExpression(lhs, BinaryOperator.MULTIPLY, rhs) }
+                Functions.Op2.of { lhs, rhs -> BinaryExpression(lhs, BinaryExpression.Operator.TIMES, rhs) }
             },
             token(DivideToken()).map {
-                Functions.Op2.of { lhs, rhs -> BinaryExpression(lhs, BinaryOperator.DIVIDE, rhs) }
+                Functions.Op2.of { lhs, rhs -> BinaryExpression(lhs, BinaryExpression.Operator.DIVIDE, rhs) }
             },
             token(ModuloToken()).map {
-                Functions.Op2.of { lhs, rhs -> BinaryExpression(lhs, BinaryOperator.MODULO, rhs) }
+                Functions.Op2.of { lhs, rhs -> BinaryExpression(lhs, BinaryExpression.Operator.MODULO, rhs) }
             },
         )
     }

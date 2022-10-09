@@ -9,9 +9,10 @@ import org.typemeta.funcj.parser.Parser
 class ClassDefinitionParser : SimpleTokenParser<ClassDefinition> {
 
     override fun parser(): Parser<Token, ClassDefinition> {
-        return token(ClassToken())
-            .andR(IdentifierParser())
-            .and(MethodDeclarationParser().many().betweenCurly())
-            .map { name, members -> ClassDefinition(name, members.toList()) }
+        return token(ClassToken()).andR(IdentifierParser()).and(MethodDeclarationParser().many().betweenCurly()).map {
+            name,
+            members ->
+            ClassDefinition(name, members.toList())
+        }
     }
 }
