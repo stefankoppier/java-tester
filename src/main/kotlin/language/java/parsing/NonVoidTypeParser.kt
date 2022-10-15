@@ -13,8 +13,8 @@ class NonVoidTypeParser : SimpleTokenParser<NonVoidType> {
 
     override fun parser(): Parser<Token, NonVoidType> {
         return choice(
-            token(IntToken()).map { IntType() },
-            token(BooleanToken()).map { BooleanType() },
+            token(IntToken()).map { IntType(it.position) },
+            token(BooleanToken()).map { BooleanType(it.position) },
         )
     }
 }

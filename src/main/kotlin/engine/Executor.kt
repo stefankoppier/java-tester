@@ -23,18 +23,18 @@ class Executor<R>(
         return semantics.result()
     }
 
-    private fun execute(state: State, node: ControlFlowGraphNode) {
-        println("execute $node $state")
-        semantics.execute(state, node).forEach { state ->
-            semantics.next(state, node).forEach { edge ->
+    private fun execute(initialState: State, node: ControlFlowGraphNode) {
+        println("execute $node $initialState")
+        semantics.execute(initialState, node).forEach { executedState ->
+            semantics.next(executedState, node).forEach { edge ->
                 when (edge) {
                     is ControlFlowGraphEdge.GuardedEdge -> {
-                        val (state, value) = semantics.evaluation.evaluateBoolean(state, edge.guard)
+                        val (evaluatedState, value) = semantics.evaluation.evaluateBoolean(executedState, edge.guard)
                         if (value) {
-                            execute(state, edge.second)
+                            execute(evaluatedState, edge.second)
                         }
                     }
-                    is ControlFlowGraphEdge.NormalEdge -> execute(state, edge.second)
+                    is ControlFlowGraphEdge.NormalEdge -> execute(executedState, edge.second)
                 }
             }
         }

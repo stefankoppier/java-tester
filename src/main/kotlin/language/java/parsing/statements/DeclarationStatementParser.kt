@@ -16,6 +16,6 @@ class DeclarationStatementParser : SimpleTokenParser<Statement> {
             .and(IdentifierParser())
             .and(token(AssignmentToken()).andR(ExpressionParser()).optional())
             .andL(semicolon())
-            .map { type, identifier, value -> DeclarationStatement(type, identifier, value.getOrNull()) }
+            .map { type, identifier, value -> DeclarationStatement(type, identifier, value.getOrNull(), type.position) }
     }
 }

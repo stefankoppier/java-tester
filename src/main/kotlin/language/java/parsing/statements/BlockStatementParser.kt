@@ -18,6 +18,6 @@ class BlockStatementParser : SimpleTokenParser<Statement> {
     }
 
     override fun parser(): Parser<Token, Statement> {
-        return StatementsParser().betweenCurly().map { statement -> BlockStatement(statement) }
+        return StatementsParser().betweenCurly().map { statement -> BlockStatement(statement, statement.position) }
     }
 }

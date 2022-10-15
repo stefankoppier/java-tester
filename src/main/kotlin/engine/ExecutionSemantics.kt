@@ -9,5 +9,5 @@ abstract class ExecutionSemantics<R>(val evaluation: EvaluationSemantics) {
 
     abstract fun execute(state: State, node: ControlFlowGraphNode): List<State>
 
-    abstract fun next(state: State, node: ControlFlowGraphNode): Set<ControlFlowGraphEdge>
+    abstract fun next(state: State, node: ControlFlowGraphNode): List<ControlFlowGraphEdge>
 }

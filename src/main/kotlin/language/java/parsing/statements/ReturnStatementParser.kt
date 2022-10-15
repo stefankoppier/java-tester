@@ -16,8 +16,8 @@ class ReturnStatementParser : SimpleTokenParser<Statement> {
 
     @OptIn(ExperimentalStdlibApi::class)
     override fun parser(): Parser<Token, Statement> {
-        return token(ReturnToken()).andR(ExpressionParser().optional()).andL(semicolon()).map { value ->
-            ReturnStatement(value.getOrNull())
+        return token(ReturnToken()).and(ExpressionParser().optional()).andL(semicolon()).map { token, value ->
+            ReturnStatement(value.getOrNull(), token.position)
         }
     }
 }

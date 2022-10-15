@@ -1,3 +1,5 @@
 package language.java.syntax.statements
 
-class EmptyStatement : Statement()
+import language.java.lexing.Position
+
+class EmptyStatement(position: Position) : Statement(position)

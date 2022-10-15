@@ -17,8 +17,16 @@ class ControlFlowGraph : DefaultDirectedGraph<ControlFlowGraphNode, ControlFlowG
         return nodes.fold(this) { cfg, node -> cfg.addNode(node) }
     }
 
+    fun find(labeled: Labeled<*>): ControlFlowGraphNode? {
+        return find(labeled.label)
+    }
+
     fun find(label: Int): ControlFlowGraphNode? {
         return vertexSet().find { it.label == label }
+    }
+
+    fun neighbours(labeled: Labeled<*>): List<ControlFlowGraphEdge> {
+        return neighbours(labeled.label)
     }
 
     fun neighbours(label: Int): List<ControlFlowGraphEdge> {
@@ -75,19 +83,40 @@ sealed class ControlFlowGraphNode(val label: Int) {
         return label.hashCode()
     }
 
-    class StatementNode(label: Int, val statement: Statement) : ControlFlowGraphNode(label) {
+    class StatementNode(label: Int, statement: Statement) : ControlFlowGraphNode(label) {
+
+        val statement: Labeled<Statement>
+
+        init {
+            this.statement = Labeled.of(label, statement)
+        }
+
         override fun toString(): String {
             return "StatementNode{$label $statement}"
         }
     }
 
-    class MethodEntryNode(label: Int, val method: MethodDeclaration) : ControlFlowGraphNode(label) {
+    class MethodEntryNode(label: Int, method: MethodDeclaration) : ControlFlowGraphNode(label) {
+
+        val method: Labeled<MethodDeclaration>
+
+        init {
+            this.method = Labeled.of(label, method)
+        }
+
         override fun toString(): String {
             return "MethodEntryNode{$label $method}"
         }
     }
 
-    class MethodExitNode(label: Int, val method: MethodDeclaration) : ControlFlowGraphNode(label) {
+    class MethodExitNode(label: Int, method: MethodDeclaration) : ControlFlowGraphNode(label) {
+
+        val method: Labeled<MethodDeclaration>
+
+        init {
+            this.method = Labeled.of(label, method)
+        }
+
         override fun toString(): String {
             return "MethodExitNode{$label $method}"
         }

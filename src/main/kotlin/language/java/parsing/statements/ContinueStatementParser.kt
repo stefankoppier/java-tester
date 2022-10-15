@@ -11,6 +11,6 @@ import org.typemeta.funcj.parser.Parser
 class ContinueStatementParser : SimpleTokenParser<Statement> {
 
     override fun parser(): Parser<Token, Statement> {
-        return token(ContinueToken()).andL(semicolon()).map { ContinueStatement() }
+        return token(ContinueToken()).andL(semicolon()).map { token -> ContinueStatement(token.position) }
     }
 }

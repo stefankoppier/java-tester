@@ -10,6 +10,6 @@ import org.typemeta.funcj.parser.Parser
 class TypeParser : SimpleTokenParser<Type> {
 
     override fun parser(): Parser<Token, Type> {
-        return choice(NonVoidTypeParser(), token(VoidToken()).map { VoidType() })
+        return choice(NonVoidTypeParser(), token(VoidToken()).map { VoidType(it.position) })
     }
 }

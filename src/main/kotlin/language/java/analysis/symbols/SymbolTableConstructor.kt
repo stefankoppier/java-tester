@@ -10,7 +10,9 @@ class SymbolTableConstructor {
         cfg.vertexSet()
             .filter { node -> node is ControlFlowGraphNode.MethodEntryNode }
             .map { node -> (node as ControlFlowGraphNode.MethodEntryNode) }
-            .forEach { node -> symbols.insert(node.method.name, SymbolTableEntry(node.label, node.method)) }
+            .forEach { node ->
+                symbols.insert(node.method.content.name, SymbolTableEntry(node.label, node.method.content))
+            }
         return symbols
     }
 }

@@ -12,6 +12,6 @@ import org.typemeta.funcj.parser.Parser
 class BreakStatementParser : SimpleTokenParser<Statement> {
 
     override fun parser(): Parser<Token, Statement> {
-        return token(BreakToken()).andL(semicolon()).map { BreakStatement() }
+        return token(BreakToken()).andL(semicolon()).map { token -> BreakStatement(token.position) }
     }
 }

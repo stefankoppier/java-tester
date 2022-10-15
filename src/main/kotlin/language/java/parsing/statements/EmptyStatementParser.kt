@@ -9,6 +9,6 @@ import org.typemeta.funcj.parser.Parser
 
 class EmptyStatementParser : SimpleTokenParser<Statement> {
     override fun parser(): Parser<Token, Statement> {
-        return semicolon().map { EmptyStatement() }
+        return semicolon().map { EmptyStatement(it.position) }
     }
 }

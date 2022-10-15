@@ -1,22 +1,24 @@
 package language.java.syntax.type
 
-sealed class Type
+import language.java.lexing.Position
 
-sealed class NonVoidType : Type()
+sealed class Type(val position: Position)
 
-class IntType : NonVoidType() {
+sealed class NonVoidType(position: Position) : Type(position)
+
+class IntType(position: Position) : NonVoidType(position) {
     override fun toString(): String {
         return "IntType"
     }
 }
 
-class BooleanType : NonVoidType() {
+class BooleanType(position: Position) : NonVoidType(position) {
     override fun toString(): String {
         return "BooleanType"
     }
 }
 
-class VoidType : Type() {
+class VoidType(position: Position) : Type(position) {
     override fun toString(): String {
         return "VoidType"
     }

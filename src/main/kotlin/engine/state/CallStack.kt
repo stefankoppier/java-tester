@@ -26,10 +26,6 @@ class CallStack(private val frames: ArrayDeque<StackFrame>) {
         return frames.lastOrNull()
     }
 
-    fun callee(): StackFrame? {
-        return if (frames.size > 1) frames[frames.size - 2] else null
-    }
-
     fun clone(): CallStack {
         return CallStack(ArrayDeque(frames.map { frame -> frame.copy() }))
     }

@@ -29,8 +29,8 @@ internal fun token(token: Token): Parser<Token, Token> {
     return value(token)
 }
 
-internal fun semicolon(): Parser<Token, Unit> {
-    return token(SemicolonToken()).map {}
+internal fun semicolon(): Parser<Token, Token> {
+    return token(SemicolonToken())
 }
 
 internal fun comma(): Parser<Token, Unit> {

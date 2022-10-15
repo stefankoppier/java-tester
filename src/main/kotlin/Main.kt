@@ -7,11 +7,14 @@ const val input =
     """
 class Application {
     static int f() {
-        if (2 + 1 <= 3) {
-            return 1 + 1 - 1 - 1;        
-        } else {
-            return f();
+        if (1 <= 2) {
+            return g();
         }
+        return 0;
+    }
+   
+    static int g() {
+        return x;
     }
 }
 """

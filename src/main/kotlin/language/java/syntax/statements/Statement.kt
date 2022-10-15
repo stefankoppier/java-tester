@@ -1,3 +1,5 @@
 package language.java.syntax.statements
 
-sealed class Statement
+import language.java.lexing.Position
+
+sealed class Statement(val position: Position)

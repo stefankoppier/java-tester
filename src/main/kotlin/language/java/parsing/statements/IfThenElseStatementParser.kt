@@ -20,11 +20,11 @@ class IfThenElseStatementParser : SimpleTokenParser<Statement> {
     @OptIn(ExperimentalStdlibApi::class)
     override fun parser(): Parser<Token, Statement> {
         return token(IfToken())
-            .andR(ExpressionParser().betweenRound())
+            .and(ExpressionParser().betweenRound())
             .and(StatementParser())
             .and(token(ElseToken()).optional().andR((StatementParser()).optional()))
-            .map { guard, trueStatement, falseStatement ->
-                IfThenElseStatement(guard, trueStatement, falseStatement.getOrNull())
+            .map { token, guard, trueStatement, falseStatement ->
+                IfThenElseStatement(guard, trueStatement, falseStatement.getOrNull(), token.position)
             }
     }
 }

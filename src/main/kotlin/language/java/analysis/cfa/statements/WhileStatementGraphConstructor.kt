@@ -45,11 +45,11 @@ class WhileStatementGraphConstructor(label: Int, val statement: WhileStatement) 
             )
 
     private fun isReturnStatement(node: ControlFlowGraphNode) =
-        node is ControlFlowGraphNode.StatementNode && node.statement is ReturnStatement
+        node is ControlFlowGraphNode.StatementNode && node.statement.content is ReturnStatement
 
     private fun isBreakStatement(node: ControlFlowGraphNode) =
-        node is ControlFlowGraphNode.StatementNode && node.statement is BreakStatement
+        node is ControlFlowGraphNode.StatementNode && node.statement.content is BreakStatement
 
     private fun isContinueStatement(node: ControlFlowGraphNode) =
-        node is ControlFlowGraphNode.StatementNode && node.statement is ContinueStatement
+        node is ControlFlowGraphNode.StatementNode && node.statement.content is ContinueStatement
 }
