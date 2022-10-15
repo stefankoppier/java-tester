@@ -43,11 +43,7 @@
 
 # Source code
 *.class
-**/build/kotlin
-**/build/java
-**/build/spotless
-**/build/tmp
-**/build/generated
+**/build/**
 
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml
