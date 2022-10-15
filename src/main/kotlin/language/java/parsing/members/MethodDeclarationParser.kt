@@ -12,11 +12,12 @@ class MethodDeclarationParser : SimpleTokenParser<MethodDeclaration> {
 
     private val simplifier = AstSimplifier()
 
+    @OptIn(ExperimentalStdlibApi::class)
     override fun parser(): Parser<Token, MethodDeclaration> {
         return modifiers()
             .and(TypeParser())
             .and(IdentifierParser())
-            .and(((ParameterParser().sepBy(comma()))).betweenRound())
+            .and(ParameterParser().sepBy(comma()).betweenRound())
             .and(StatementsParser().betweenCurly())
             .map { modifiers, type, name, parameters, body ->
                 simplifier.simplify(MethodDeclaration(modifiers.toList(), type, name, parameters.toList(), body))

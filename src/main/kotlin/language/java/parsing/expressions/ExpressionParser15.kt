@@ -44,13 +44,13 @@ class ExpressionParser15 : SimpleTokenParser<Expression> {
 
     private class VariableTermParser : SimpleTokenParser<(Identifier) -> VariableTermExpression> {
 
-        //        override fun acceptsEmpty(): Lazy<Boolean> {
-        //            return Lazy.of { true }
-        //        }
-        //
-        //        override fun firstSet(): Lazy<SymSet<Token>> {
-        //            return Lazy.of { SymSet.all() }
-        //        }
+        override fun acceptsEmpty(): Lazy<Boolean> {
+            return Lazy.of { false }
+        }
+
+        override fun firstSet(): Lazy<SymSet<Token>> {
+            return Lazy.of { SymSet.all() }
+        }
 
         override fun parser(): Parser<Token, (Identifier) -> VariableTermExpression> {
             return pure<Token, Unit>(Unit).map { { identifier -> VariableTermExpression(identifier) } }
@@ -58,14 +58,6 @@ class ExpressionParser15 : SimpleTokenParser<Expression> {
     }
 
     private class InvocationTermParser : SimpleTokenParser<(Identifier) -> InvocationExpression> {
-
-        //        override fun acceptsEmpty(): Lazy<Boolean> {
-        //            return Lazy.of { false }
-        //        }
-        //
-        //        override fun firstSet(): Lazy<SymSet<Token>> {
-        //            return Lazy.of { SymSet.value(RoundOpenToken()) }
-        //        }
 
         override fun parser(): Parser<Token, (Identifier) -> InvocationExpression> {
             return token(RoundOpenToken()).andR(ExpressionParser().sepBy(comma())).andL(token(RoundCloseToken())).map {
