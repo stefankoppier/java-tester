@@ -1,8 +1,9 @@
 package semantics.execution
 
+import engine.ExecutionContext
+import engine.Executor
 import engine.state.StackFrame
 import engine.state.State
-import language.java.analysis.cfa.ControlFlowGraph
 import language.java.analysis.cfa.ControlFlowGraphEdge
 import language.java.analysis.cfa.ControlFlowGraphNode
 import semantics.output.ResultGenerator
@@ -25,11 +26,11 @@ class MethodExitNodeExecutor(val node: ControlFlowGraphNode.MethodExitNode) : Ex
         return listOf(state)
     }
 
-    override fun follow(cfg: ControlFlowGraph): List<ControlFlowGraphEdge> {
+    override fun follow(state: State): List<Executor> {
         val retpc = previous!!.retpc
         if (retpc != null && retpc != -1) {
-            return listOf(ControlFlowGraphEdge.of(node, cfg.find(retpc)!!))
+            return listOf(ControlFlowGraphEdge.of(node, ExecutionContext.cfg.find(retpc)!!)).map { Executor.of(it) }
         }
-        return cfg.neighbours(node.label)
+        return ExecutionContext.cfg.neighbours(node.label).map { Executor.of(it) }
     }
 }

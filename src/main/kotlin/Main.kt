@@ -8,12 +8,12 @@ const val input =
 class Application {
     static int f() {
         if (1 <= 2) {
-            return g();
+            return g(1);
         }
         return 0;
     }
    
-    static int g() {
+    static int g(int x) {
         return x;
     }
 }

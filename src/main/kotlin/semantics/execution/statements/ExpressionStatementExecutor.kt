@@ -1,20 +1,17 @@
 package semantics.execution.statements
 
-import engine.EvaluationSemantics
+import engine.ExecutionContext
+import engine.Executor
 import engine.state.State
-import language.java.analysis.cfa.ControlFlowGraph
-import language.java.analysis.cfa.ControlFlowGraphEdge
 import language.java.analysis.cfa.Labeled
 import language.java.syntax.statements.ExpressionStatement
-import semantics.execution.Executor
 
-class ExpressionStatementExecutor(val statement: Labeled<ExpressionStatement>, val semantics: EvaluationSemantics) :
-    Executor {
+class ExpressionStatementExecutor(val statement: Labeled<ExpressionStatement>) : Executor {
     override fun execute(state: State): List<State> {
-        return listOf(semantics.evaluate(state, statement.content.expression).state)
+        return listOf(ExecutionContext.semantics.evaluate(state, statement.content.expression).state)
     }
 
-    override fun follow(cfg: ControlFlowGraph): List<ControlFlowGraphEdge> {
-        return cfg.neighbours(statement)
+    override fun follow(state: State): List<Executor> {
+        return follow(statement)
     }
 }

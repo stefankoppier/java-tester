@@ -1,42 +1,47 @@
 package engine
 
 import engine.state.State
-import language.java.analysis.cfa.ControlFlowGraph
 import language.java.analysis.cfa.ControlFlowGraphEdge
 import language.java.analysis.cfa.ControlFlowGraphNode
-import language.java.analysis.symbols.SymbolTable
-import semantics.errors.CannotFindSymbolError
+import language.java.analysis.cfa.Labeled
+import language.java.syntax.expressions.Expression
+import language.java.syntax.type.BooleanType
+import language.java.syntax.type.IntType
+import language.java.syntax.type.NonVoidType
+import semantics.execution.NodeExecutor
 
-class Executor<R>(
-    private val cfg: ControlFlowGraph,
-    private val symbols: SymbolTable,
-    private val semantics: ExecutionSemantics<R>
-) {
+interface Executor {
+    companion object {
+        fun of(edge: ControlFlowGraphEdge): Executor {
+            val guard =
+                when (edge) {
+                    is ControlFlowGraphEdge.GuardedEdge -> edge.guard
+                    is ControlFlowGraphEdge.NormalEdge -> Expression.of(true)
+                }
 
-    fun start(): R {
-        val initialState = State.of()
-        val initialSymbol =
-            symbols.lookup(ApplicationConfiguration.entry()!!)
-                ?: throw CannotFindSymbolError(ApplicationConfiguration.entry()!!)
-
-        execute(initialState, ControlFlowGraphNode.MethodEntryNode(initialSymbol.label, initialSymbol.method))
-        return semantics.result()
+            return NodeExecutor(edge.second, guard)
+        }
     }
 
-    private fun execute(initialState: State, node: ControlFlowGraphNode) {
-        println("execute $node $initialState")
-        semantics.execute(initialState, node).forEach { executedState ->
-            semantics.next(executedState, node).forEach { edge ->
-                when (edge) {
-                    is ControlFlowGraphEdge.GuardedEdge -> {
-                        val (evaluatedState, value) = semantics.evaluation.evaluateBoolean(executedState, edge.guard)
-                        if (value) {
-                            execute(evaluatedState, edge.second)
-                        }
-                    }
-                    is ControlFlowGraphEdge.NormalEdge -> execute(executedState, edge.second)
-                }
-            }
-        }
+    fun execute(state: State): List<State>
+
+    fun follow(state: State): List<Executor>
+
+    fun follow(node: Labeled<*>): List<Executor> {
+        return ExecutionContext.cfg.neighbours(node).map { of(it) }
+    }
+
+    fun follow(node: ControlFlowGraphNode): List<Executor> {
+        return ExecutionContext.cfg.outgoingEdgesOf(node).map { of(it) }
+    }
+}
+
+internal fun identity(state: State): List<State> = listOf(state)
+
+// TODO: this needs a new location
+internal fun default(type: NonVoidType): Expression {
+    return when (type) {
+        is IntType -> Expression.of(0)
+        is BooleanType -> Expression.of(false)
     }
 }
